@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Chat</title></head>
+<body>
+  <h2>FastAPI WebSocket Chat</h2>
+  <div id="chat-box">
+    <input id="msg" placeholder="Type a message" />
+    <button id="sender" onclick="send()">Send</button>
+  </div>
+  <ul id="messages"></ul>
+
+  <script>
+    ws = new WebSocket(`ws://127.0.0.1:8000/ws`);
+    ws.onmessage = (event) => {
+      const li = document.createElement("li");
+      li.textContent = event.data;
+      document.getElementById("messages").appendChild(li);
+    }
+    function send() {
+      const input = document.getElementById("msg");
+      ws.send(input.value);
+      input.value = "";
+    }
+  </script>
+</body>
+</html>

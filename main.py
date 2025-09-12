@@ -1,17 +1,22 @@
-from fastapi import  FastAPI, WebSocket, WebSocketDisconnect, Query
+import json
+from pyexpat.errors import messages
+
+from fastapi import  FastAPI, WebSocket, WebSocketDisconnect
 from manager import ConnectionManager
 app = FastAPI()
 manager = ConnectionManager()
 
 @app.websocket("/ws")
 async def websocket_connection(websocket: WebSocket):
-    await manager.accept(websocket)
+    await websocket.accept()
+    json_username = await websocket.receive_text()
+    username = json.loads(json_username)['username']
+    await manager.accept(websocket, username)
     try:
         while True:
-            data = await websocket.receive_text()
-            await manager.broadcast(data)
+            json_message = await websocket.receive_text()
+            message = json.loads(json_message)['message']
+            await manager.broadcast(websocket, message)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast("User left")
-
-

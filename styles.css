@@ -34,8 +34,19 @@ body {
 }
 
 .text-message {
-    color: red;
+    display: inline-block;
+    color: black;
     list-style-type: none;
+    background-color: white;
+    border-radius: 25px;
+    padding: 5px 10px;
+    margin-top: 5px;
+    max-width: 730px;
+}
+
+#messages-list {
+    padding: 0;
+    margin-left: 15px;
 }
 
 #chat-box {

@@ -16,7 +16,7 @@ async def websocket_connection(websocket: WebSocket):
         while True:
             json_message = await websocket.receive_text()
             message = json.loads(json_message)['message']
-            await manager.broadcast(websocket, message)
+            await manager.user_broadcast(websocket, message)
     except WebSocketDisconnect:
-        manager.disconnect(websocket)
-        await manager.broadcast("User left")
+        await manager.disconnect(websocket)
+        

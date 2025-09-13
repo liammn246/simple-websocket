@@ -38,7 +38,7 @@ document.getElementById("username-form").addEventListener("submit", (e) => {
         console.log("working")
         const li = document.createElement("li");
         li.classList.add("text-message")
-        li.textContent = event.data; // SENDS TEXT, AS WELL AS USERNAME?
-        document.getElementById("messages").appendChild(li);
+        li.textContent = event.data;
+        document.getElementById("messages-list").appendChild(li);
 }
 })
